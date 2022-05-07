@@ -127,8 +127,8 @@ namespace TrustedPartnersHomeAssignment.Models
         public class spGetAgentOrdersByRankResult
         {
             public int ORD_NUM { get; set; }
-            public float ORD_AMOUNT { get; set; }
-            public float ADVANCE_AMOUNT { get; set; }
+            public double ORD_AMOUNT { get; set; }
+            public double ADVANCE_AMOUNT { get; set; }
             public DateTime ORD_DATE { get; set; }
             public string CUST_CODE { get; set; }
             public string AGENT_CODE { get; set; }
@@ -145,7 +145,7 @@ namespace TrustedPartnersHomeAssignment.Models
         public class spGetAgentWithHighestSellForYearResult
         {
             public string Agent_Code { get; set; }
-            public float TotalAmount { get; set; }
+            public double TotalAmount { get; set; }
         }
 
     }

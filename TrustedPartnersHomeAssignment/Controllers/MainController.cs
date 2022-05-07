@@ -15,85 +15,30 @@ namespace TrustedPartnersHomeAssignment.Controllers
         private SPToCoreContext _dbContext = new SPToCoreContext();
 
         [HttpGet]
-        [Route("get")]
-        public IEnumerable<string> GetAgentWithHighSell(int year)
+        [Route("getAgentWithHighSell")]
+        public async Task<string> GetAgentWithHighSell(int year)
         {
-            return new string[] {"blabla", "blublu"};
+            var res =  await _dbContext.spGetAgentWithHighestSellForYearAsync(year);
+            if (!res.Any()) return string.Empty;
+            return res.First().Agent_Code;
+        }        
+        
+        [HttpGet]
+        [Route("getAgentOrdersByRank")]
+        public async Task<IEnumerable<SPToCoreContext.spGetAgentOrdersByRankResult>> GetAgentOrdersByRank([FromQuery] string[] agentsList, int rowRank)
+        {
+            if (agentsList == null || !agentsList.Any()) return new List<SPToCoreContext.spGetAgentOrdersByRankResult>();
+            var res =  await _dbContext.spGetAgentOrdersByRankAsync(string.Join(",", agentsList), rowRank);
+            return res;
         }
 
-        // GET: MainController
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        [Route("getAgentsOrderOrderNumForYear")]
+        public async Task<IEnumerable<SPToCoreContext.spGetAgentsWithOrdersNumForYearResult>> GetAgentsWithOrdersNumForYear(int minOrdersForAgent, int year)
+        {
+            var res = await _dbContext.spGetAgentsWithOrdersNumForYearAsync(minOrdersForAgent, year);
+            return res;
+        }
 
-        // GET: MainController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //// GET: MainController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: MainController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: MainController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: MainController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        //// GET: MainController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: MainController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }
