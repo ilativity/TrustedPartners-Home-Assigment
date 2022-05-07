@@ -1,2 +1,2 @@
-# TrustedPartners-Home-Assigment
+# TrustedPartners-Home-Assignment
 Web API interface
